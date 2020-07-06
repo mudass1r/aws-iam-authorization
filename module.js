@@ -42,7 +42,7 @@ var Signer = (function() {
       },
 
       canonicalRequest: function(credentials, request, date) {
-        return request.method.toUpperCase() + '\n' + (request.route.charAt(0) !== '/' ? '/' + request.route : request.route) + '\n' + this.queryParameters(request.query) + '\ncontent-type:application/json\nhost:' + credentials.host + '\n' + ('x-amz-date:' + this.amzLongDate(date) + '\n' + (credentials.token ? 'x-amz-security-token:' + credentials.token + '\n' : '') + '\n') + ('content-type;host;x-amz-date;' + (credentials.token ? 'x-amz-security-token' : '') + '\n') + this.hashString(request.body);
+        return request.method.toUpperCase() + '\n' + (request.route.charAt(0) !== '/' ? '/' + request.route : request.route) + '\n' + this.queryParameters(request.query) + '\ncontent-type:application/json\nhost:' + credentials.host + '\n' + ('x-amz-date:' + this.amzLongDate(date) + '\n' + (credentials.token ? 'x-amz-security-token:' + credentials.token + '\n' : '') + '\n') + ('content-type;host;x-amz-date' + (credentials.token ? 'x-amz-security-token' : '') + '\n') + this.hashString(request.body);
       },
 
       requestToSign: function(cRequest, credentials, date) {
