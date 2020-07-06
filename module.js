@@ -103,9 +103,6 @@ $.ajax(Signer(credentials, {
   async: true,
   crossDomain: true,
   contentType: 'application/json',
-  headers: {
-    "Access-Control-Allow-Origin" : "*"
-  },
   // data: { foo: 'bar' },
   success: function(data) {
     console.log(data);
