@@ -21,7 +21,7 @@
     app.get('/api/info', (req, res) => {
        res.send({ 
             statusCode: 200,
-            body : { application: 'media-score-app', 
+            body : { application: 'my-app', 
             version: '1'
             } 
         });
