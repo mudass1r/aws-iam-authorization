@@ -30,8 +30,12 @@ var Signer = (function() {
         credentials.host = url.host;
         request.route = url.pathname;
 
+        // console.log("Req Body " + request.body);
+
         var canonical = this.canonicalRequest(credentials, request, date);
+        // console.log("canonical : " + canonical)
         var toSign = this.requestToSign(canonical, credentials, date);
+        // console.log("toSign : " + toSign)
         var signature = this.signature(toSign, credentials, date);
 
         return {
@@ -96,16 +100,41 @@ var Signer = (function() {
     }
   })();
 
-$.ajax(Signer(credentials, {
-  url: <AWS API LINK>',
-  type: 'GET',
-  dataType: 'json',
-  async: true,
-  crossDomain: true,
-  contentType: 'application/json',
-  // data: { foo: 'bar' },
-  success: function(data) {
-    console.log(data);
-  }
-}));
+/**
+ * Sample Example for GET AJAX Call using authorization 
+ */
 
+ var settings = {
+    async: true,
+    crossDomain: true,
+    contentType: 'application/json',
+    url: <AWS API LINK>',    
+    method: "GET"
+}
+
+$.ajax(Signer(credentials,settings)).done(function (response) { 
+
+  document.getElementById('output').innerHTML = "GET :<br> " + JSON.stringify(response);
+
+});
+
+/**
+ * Sample Example for POST AJAX Call using authorization 
+ */
+
+ var settings2 = {
+    async: true,
+    crossDomain: true,
+    contentType: 'application/json',
+    url: <AWS API LINK>',
+    data: {
+        "foo" : "foobar"
+    },
+    type: "POST"
+}
+
+$.ajax(Signer(credentials,settings2)).done(function (response) { 
+
+  document.getElementById('output2').innerHTML = "<br>POST : <br>" + JSON.stringify(response);
+
+});
